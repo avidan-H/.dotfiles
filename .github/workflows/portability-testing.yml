@@ -45,18 +45,20 @@ jobs:
 
   test_containerized:
     name: Test Installation in a Containerized Development Environment
+    runs-on: ubuntu-20.04
     container: ${{ matrix.container }}
     strategy:
       matrix:
         container: [
-          mcr.microsoft.com/vscode/devcontainers/universal:1-linux,
-          mcr.microsoft.com/vscode/devcontainers/base:0-alpine-3.13,
-          mcr.microsoft.com/vscode/devcontainers/base:focal,
-          mcr.microsoft.com/vscode/devcontainers/base:bullseye
+          'mcr.microsoft.com/vscode/devcontainers/universal:1-linux',
+          'mcr.microsoft.com/vscode/devcontainers/base:0-alpine-3.13',
+          'mcr.microsoft.com/vscode/devcontainers/base:focal',
+          'mcr.microsoft.com/vscode/devcontainers/base:bullseye'
         ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
           path: /workspaces/.codespaces/.persistedshare/dotfiles
 
       - name: Print Context
