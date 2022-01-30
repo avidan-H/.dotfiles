@@ -28,8 +28,16 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
 
+      - name: Directory Information
+        run: |
+          echo '$HOME='"$HOME"
+          ls -lAh "$HOME"
+          echo "pwd=$(pwd)"
+          ls -lAh
+          echo '$GITHUB_WORKSPACE='"$GITHUB_WORKSPACE"
+
       - name: Run Dotfiles Installer Script
-        run: ./.dotfiles/script/bootstrap
+        run: ./script/bootstrap
 
       - name: Test Utilities
         run: |
@@ -55,11 +63,31 @@ jobs:
           'mcr.microsoft.com/vscode/devcontainers/base:focal',
           'mcr.microsoft.com/vscode/devcontainers/base:bullseye'
         ]
+    env:
+      CODESPACES_CLONE_PATH: /workspaces/.codespaces/.persistedshare/dotfiles
+    defaults:
+      run:
+        working-directory: ${{ env.CODESPACES_CLONE_PATH }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          path: /workspaces/.codespaces/.persistedshare/dotfiles
+
+      - name: After Checkout - Directory Information
+        run: |
+          echo '$HOME='"$HOME"
+          ls -lAh "$HOME"
+          echo "pwd=`pwd`"
+          ls -lAh
+          echo '$GITHUB_WORKSPACE='"$GITHUB_WORKSPACE"
+          ls -lAh "$GITHUB_WORKSPACE"
+        working-directory: ${{ github.workspace }}
+
+      - name: Move Repo
+        run: |
+          mkdir -p /workspaces/.codespaces/.persistedshare/dotfiles
+          cp -r "$GITHUB_WORKSPACE"/. /workspaces/.codespaces/.persistedshare/dotfiles
+          rm -rf "$GITHUB_WORKSPACE"/*
+        working-directory: ${{ github.workspace }}
 
       - name: Print Context
         run: |
@@ -67,16 +95,24 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
 
+      - name: After Directory-Manipulation - Directory Information
+        run: |
+          echo '$HOME='"$HOME"
+          ls -lAh "$HOME"
+          echo "pwd=`pwd`"
+          ls -lAh
+          echo '$GITHUB_WORKSPACE='"$GITHUB_WORKSPACE"
+          ls -lAh "$GITHUB_WORKSPACE"
+
       - name: Run Dotfiles Installer Script
-        run: ./bootstrap
-        working-directory: /workspaces/.codespaces/.persistedshare/dotfiles
+        run: ./script/bootstrap
 
       - name: Test Utilities
         run: |
           if test ! "$(which kubectl)"; then
             echo "--Failure--"
             echo "kubectl not installed"
-            return 1
+            exit 1
           else
             echo "--Success--"
             echo "kubectl is installed"
