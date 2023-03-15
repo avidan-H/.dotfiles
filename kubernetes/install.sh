@@ -2,6 +2,7 @@
 #
 # kubectl
 # minikube
+# k9s
 #
 # installs kubectl and minikube
 ret=0
@@ -24,6 +25,16 @@ if test ! "$(which minikube)"; then
         brew install minikube && ret=$?
     else
         echo "brew is not installed - skipping installation of minikube"
+    fi
+fi
+
+# Check for k9s
+if test ! "$(which k9s)"; then
+    if test "$(which brew)"; then
+        echo "Installing k9s for you."
+        brew install k9s && ret=$?
+    else
+        echo "brew is not installed - skipping installation of k9s"
     fi
 fi
 
