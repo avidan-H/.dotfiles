@@ -6,6 +6,7 @@ plugins=(
     docker
     docker-compose
     asdf
+    brew
 )
 if [[ -e "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]]; then
     plugins=("${plugins[@]}" zsh-syntax-highlighting)
