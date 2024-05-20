@@ -1,6 +1,6 @@
 
 # enable pipx completion
-if test "$(which pipx)"; then
+if (( $+commands[pipx] )); then
     if ! pip3 list 2&> /dev/null | grep -q argcomplete; then
         pip3 install argcomplete
     fi
@@ -11,7 +11,7 @@ if test "$(which pipx)"; then
 fi
 
 # enable pipenv completion
-if test "$(which pipenv)"; then
+if (( $+commands[pipenv] )); then
     eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 fi
 
