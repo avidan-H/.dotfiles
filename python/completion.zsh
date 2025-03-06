@@ -29,3 +29,13 @@ if (( $+commands[pdm] )); then
     pdm completion zsh >| "$ZSH_CACHE_DIR/completions/_pdm" &|
   fi
 fi
+
+# enable uv completions
+if (( $+commands[uv] )); then
+  eval "$(uv generate-shell-completion zsh)"
+fi
+
+# enable uvx completion (uvx is an alias for uv tool run - analagous to pipx run)
+if (( $+commands[uvx] )); then
+  eval "$(uvx --generate-shell-completion zsh)"
+fi

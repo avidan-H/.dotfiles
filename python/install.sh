@@ -6,7 +6,7 @@
 # pdm
 #
 # installs asdf-python and some of the most popular python versions
-# installs pipx and pipenv and pdm
+# installs pipx and pipenv and pdm and uv
 
 # Check for asdf
 if "$(which asdf)"; then
@@ -60,6 +60,17 @@ if test ! "$(which pdm)"; then
         brew install pdm
     else
         echo "brew is not installed - skipping installation of pdm"
+    fi
+fi
+
+
+# check for uv
+if test ! "$(which uv)"; then
+    if test "$(which brew)"; then
+        echo "Installing uv for you"
+        brew install uv
+    else
+        echo "brew is not installed - skipping installation of uv"
     fi
 fi
 
