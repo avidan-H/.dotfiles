@@ -24,3 +24,9 @@ if ! [[ -e "$HOME"/.oh-my-zsh ]]; then
     export ZSH_THEME="robbyrussell"
     source "$ZSH"/oh-my-zsh.sh
 fi
+
+# iterm2 shell integration script
+if [[ -e "$HOME"/.dotfiles/terminal_customization/.iterm2_shell_integration.zsh ]]; then
+    echo "Installing iterm2 shell integration"
+    source "$HOME"/.dotfiles/terminal_customization/.iterm2_shell_integration.zsh
+fi

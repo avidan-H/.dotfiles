@@ -7,6 +7,9 @@ plugins=(
     docker-compose
     asdf
     brew
+    fzf
+    golang
+    poetry
 )
 if [[ -e "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]]; then
     plugins=("${plugins[@]}" zsh-syntax-highlighting)
@@ -16,3 +19,9 @@ if [[ -e "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions ]]
 fi
 
 source $ZSH/oh-my-zsh.sh
+
+# iterm2 shell integration script
+if [[ -e "$HOME"/.dotfiles/terminal_customization/.iterm2_shell_integration.zsh ]]; then
+    echo "Installing iterm2 shell integration"
+    source "$HOME"/.dotfiles/terminal_customization/.iterm2_shell_integration.zsh
+fi

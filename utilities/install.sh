@@ -4,6 +4,7 @@
 # - asdf - Manage multiple runtime versions with a single CLI tool http://asdf-vm.com/
 # - act (utility for testing github actions workflows locally https://github.com/nektos/act)
 # - direnv
+# - fzf (command line fuzzy finder)
 # - google cloud sdk (gcloud gsutil bq)
 
 
@@ -22,6 +23,18 @@ fi
 if ! $(brew list | grep -q "direnv"); then
     echo "Installing direnv"
     brew install direnv
+fi
+
+
+if ! $(brew list | grep -q "fzf"); then
+    echo "Installing fzf"
+    brew install fzf
+fi
+
+
+if ! $(brew list | grep -q "fd"); then
+    echo "Installing fd"
+    brew install fd
 fi
 
 

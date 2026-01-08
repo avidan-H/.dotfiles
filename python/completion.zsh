@@ -1,6 +1,6 @@
 
 # enable pipx completion
-if test "$(which pipx)"; then
+if (( $+commands[pipx] )); then
     if ! pip3 list 2&> /dev/null | grep -q argcomplete; then
         pip3 install argcomplete
     fi
@@ -11,7 +11,7 @@ if test "$(which pipx)"; then
 fi
 
 # enable pipenv completion
-if test "$(which pipenv)"; then
+if (( $+commands[pipenv] )); then
     eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 fi
 
@@ -28,4 +28,14 @@ if (( $+commands[pdm] )); then
     autoload -U "$ZSH_CACHE_DIR/completions/_pdm"
     pdm completion zsh >| "$ZSH_CACHE_DIR/completions/_pdm" &|
   fi
+fi
+
+# enable uv completions
+if (( $+commands[uv] )); then
+  eval "$(uv generate-shell-completion zsh)"
+fi
+
+# enable uvx completion (uvx is an alias for uv tool run - analagous to pipx run)
+if (( $+commands[uvx] )); then
+  eval "$(uvx --generate-shell-completion zsh)"
 fi
