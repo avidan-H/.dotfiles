@@ -32,6 +32,12 @@ if ! $(brew list | grep -q "fzf"); then
 fi
 
 
+if ! $(brew list | grep -q "fd"); then
+    echo "Installing fd"
+    brew install fd
+fi
+
+
 default_google_cloud_sdk_root="$HOME/google-cloud-sdk"
 
 # Check for gcloud installation 
