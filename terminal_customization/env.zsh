@@ -5,7 +5,7 @@ plugins=(
     macos
     docker
     docker-compose
-    asdf
+    mise
     brew
     fzf
     golang

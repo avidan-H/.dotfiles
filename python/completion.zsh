@@ -1,20 +1,4 @@
 
-# enable pipx completion
-if (( $+commands[pipx] )); then
-    if ! pip3 list 2&> /dev/null | grep -q argcomplete; then
-        pip3 install argcomplete
-    fi
-
-    autoload -U bashcompinit
-    bashcompinit
-    eval "$(register-python-argcomplete pipx)"
-fi
-
-# enable pipenv completion
-if (( $+commands[pipenv] )); then
-    eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
-fi
-
 # enable pdm completion
 # adapted from the kubectl oh-my-zsh plugin https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/kubectl/kubectl.plugin.zsh
 if (( $+commands[pdm] )); then
