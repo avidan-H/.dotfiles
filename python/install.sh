@@ -1,34 +1,11 @@
 #!/bin/bash
 #
-# asdf-python
 # pipx
-# pipenv
 # pdm
+# uv
 #
-# installs asdf-python and some of the most popular python versions
-# installs pipx and pipenv and pdm and uv
-
-# Check for asdf
-if "$(which asdf)"; then
-    echo "asdf found"
-    if ! asdf plugin-list | grep -q "python"; then
-        echo "Installing asdf-python plugin for you"
-        asdf plugin-add python
-        if ! asdf list python | grep -q "3.11"; then
-            echo "Installing python version 3.11 and setting it to global"
-            default_version="3.11.0"
-            python_version=$(asdf list all python | grep "3.11" | tr -d " " | grep -v "[a-zA-Z]" | tail -n 1)
-            version_to_install="${python_version:-$default_version}"
-            echo "Installing python version $version_to_install"
-            asdf install python "$version_to_install"
-            echo "Setting global python version to $version_to_install"
-            asdf global python "$version_to_install"
-        fi
-    else
-        echo "asdf-python plugin already installed"
-    fi
-fi
-
+# installs pipx, pdm, and uv
+# Note: Python runtime versions are managed by mise
 
 # Check for pipx
 if test ! "$(which pipx)"; then
@@ -38,17 +15,6 @@ if test ! "$(which pipx)"; then
         pipx ensurepath
     else
         echo "brew is not installed - skipping installation of pipx"
-    fi
-fi
-
-
-# Check for pipenv
-if test ! "$(which pipenv)"; then
-    if test "$(which pipx)"; then
-        echo "Installing pipenv for you."
-        pipx install pipenv
-    else
-        echo "pipx is not installed - skipping installation of pipenv"
     fi
 fi
 
